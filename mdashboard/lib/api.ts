@@ -154,21 +154,57 @@ export interface LoginData {
   password: string;
 }
 
+export interface User {
+  id: string;
+  name: string;
+  email: string;
+}
+
 export interface AuthResponse {
   token: string;
-  user: {
-    id: string;
-    name: string;
-    email: string;
-  };
+  user: User;
+}
+
+export interface ValidateTokenResponse {
+  valid: boolean;
+  user?: User;
+}
+
+export interface LogoutResponse {
+  message: string;
+}
+
+export interface ResetPasswordData {
+  current_password: string;
+  password: string;
+  password_confirmation: string;
+}
+
+export interface ResetPasswordResponse {
+  message: string;
 }
 
 export const registerUser = async (data: RegisterData) => {
   return postData<RegisterData, AuthResponse>("/register", data);
 };
 
+export const logoutUser = async () => {
+  return postData<{}, LogoutResponse>("/logout", {});
+};
+
 export const loginUser = async (data: LoginData) => {
   return postData<LoginData, AuthResponse>("/login", data);
+};
+
+export const validateToken = async () => {
+  return getData<ValidateTokenResponse>("/validate");
+};
+
+export const resetPassword = async (data: ResetPasswordData) => {
+  return postData<ResetPasswordData, ResetPasswordResponse>(
+    "/reset-password",
+    data
+  );
 };
 
 export default api;
