@@ -1,40 +1,19 @@
 import MouseLight from "@/src/components/MouseLight";
 import ApiHealth from "@/components/ui/api-health";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import GridBackground from "@/components/ui/grid-background";
+import AuthHeader from "@/components/ui/auth-header";
+
 export default function Home() {
   return (
     <div className="relative flex min-h-screen flex-col bg-black overflow-hidden">
-      {/* Grid Background */}
-      <div
-        className="absolute inset-0 bg-black"
-        style={{
-          backgroundImage: `
-            linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-            linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px)
-          `,
-          backgroundSize: "50px 50px",
-        }}
-      />
+      <GridBackground />
 
-      {/* Radial Light Effect - Follows Mouse */}
       <MouseLight />
 
-      {/* Header */}
-      <header className="relative z-10 border-b border-zinc-800/50 backdrop-blur-sm">
-        <div className="container mx-auto px-6 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-white flex items-center justify-center">
-              <span className="text-black font-bold text-lg">M</span>
-            </div>
-            <span className="text-white font-semibold text-xl">Mercury</span>
-          </div>
+      <AuthHeader linkHref="/login" linkText="Login" />
 
-          <button className="px-6 py-2 bg-white text-black cursor-pointer font-medium rounded-lg hover:bg-zinc-200 transition-colors">
-            Login
-          </button>
-        </div>
-      </header>
-
-      {/* Content */}
       <main className="relative z-10 flex flex-1  flex-col items-center justify-center text-center p-8 max-w-4xl mx-auto">
         <div className="mb-8 inline-block px-4 py-2 rounded-full bg-zinc-800/50 border border-zinc-700">
           <span className="text-sm text-zinc-300">Administrative Panel</span>
@@ -51,7 +30,10 @@ export default function Home() {
         </p>
 
         <div className="flex items-center gap-4 mb-8">
-          <button className="group relative px-8 cursor-pointer py-4 bg-white text-black font-semibold rounded-3xl hover:bg-zinc-200 transition-all duration-200 shadow-lg hover:shadow-xl hover:scale-105">
+          <Link
+            href="/register"
+            className="group relative px-8 cursor-pointer py-4 bg-white text-black font-semibold rounded-3xl hover:bg-zinc-200 transition-all duration-200 shadow-lg hover:shadow-xl hover:scale-105"
+          >
             <span className="flex items-center gap-2">
               Sign Up
               <svg
@@ -68,7 +50,7 @@ export default function Home() {
                 />
               </svg>
             </span>
-          </button>
+          </Link>
         </div>
         <ApiHealth />
       </main>
