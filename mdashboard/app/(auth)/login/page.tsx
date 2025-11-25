@@ -15,7 +15,7 @@ export default function Register() {
       <AuthHeader linkHref="/login" linkText="Login" />
 
       <main className="relative z-10 flex-1 flex items-start justify-center p-6">
-        <div className="w-full max-w-md">
+        <div className="w-full  justify-center  items-center max-w-md">
           <span className="text-white text-2xl block mb-4">Login</span>
           <LoginForm />
         </div>

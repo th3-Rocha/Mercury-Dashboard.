@@ -14,27 +14,26 @@ export default function Home() {
 
       <AuthHeader linkHref="/login" linkText="Login" />
 
-      <main className="relative z-10 flex flex-1  flex-col items-center justify-center text-center p-8 max-w-4xl mx-auto">
+      <main className="relative z-10 flex flex-1  flex-col items-center justify-start text-center p-8 max-w-4xl mx-auto">
         <div className="mb-8 inline-block px-4 py-2 rounded-full bg-zinc-800/50 border border-zinc-700">
           <span className="text-sm text-zinc-300">Administrative Panel</span>
         </div>
 
         <h1 className="text-6xl md:text-7xl font-bold text-white mb-6 tracking-tight">
-          Mercury Dashboard
+          Mercury Fleet
         </h1>
 
         <p className="text-lg md:text-xl text-zinc-400 mb-8 max-w-2xl leading-relaxed">
-          Administrative panel focused on performance, user experience and
-          direct integration with Mercury API built with Laravel and PHP. A
-          fast, responsive interface fully connected to the backend.
+          "Mercury Fleet is a high-performance Transportation Management System
+          (TMS).
         </p>
 
-        <div className="flex items-center gap-4 mb-8">
+        <div className="flex items-center gap-4 mb-8 mt-10">
           <Link
             href="/register"
             className="group relative px-8 cursor-pointer py-4 bg-white text-black font-semibold rounded-3xl hover:bg-zinc-200 transition-all duration-200 shadow-lg hover:shadow-xl hover:scale-105"
           >
-            <span className="flex items-center gap-2">
+            <span className="flex items-center gap-2 ">
               Sign Up
               <svg
                 className="w-5 h-5 group-hover:translate-x-1 transition-transform"

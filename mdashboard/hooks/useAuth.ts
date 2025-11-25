@@ -1,15 +1,8 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import {
-  loginUser,
-  registerUser,
-  LoginData,
-  RegisterData,
-  logoutUser,
-  resetPassword,
-  ResetPasswordData,
-} from "@/lib/api";
+import { loginUser, registerUser, logoutUser, resetPassword } from "@/lib/api";
 import { useAuthContext } from "@/contexts/AuthContext";
+import { LoginData, RegisterData } from "@/lib/types";
 
 export function useAuth() {
   const [isLoading, setIsLoading] = useState(false);

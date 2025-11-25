@@ -7,15 +7,8 @@ import {
   useEffect,
   ReactNode,
 } from "react";
-import { validateToken, User } from "@/lib/api";
-
-interface AuthContextType {
-  isAuthenticated: boolean;
-  isChecking: boolean;
-  user: User | null;
-  setUser: (user: User | null) => void;
-  setIsAuthenticated: (value: boolean) => void;
-}
+import { validateToken } from "@/lib/api";
+import { AuthContextType, User } from "@/lib/types";
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 

@@ -1,4 +1,13 @@
 import axios, { AxiosError, AxiosRequestConfig } from "axios";
+import {
+  RegisterData,
+  LoginData,
+  AuthResponse,
+  ValidateTokenResponse,
+  LogoutResponse,
+  ResetPasswordData,
+  ResetPasswordResponse,
+} from "./types";
 
 const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080/api",
@@ -142,47 +151,10 @@ export async function deleteData<R = any>(
   }
 }
 
-// Funções específicas para autenticação
-export interface RegisterData {
-  name: string;
-  email: string;
-  password: string;
-}
-
-export interface LoginData {
-  email: string;
-  password: string;
-}
-
-export interface User {
-  id: string;
-  name: string;
-  email: string;
-}
-
-export interface AuthResponse {
-  token: string;
-  user: User;
-}
-
-export interface ValidateTokenResponse {
-  valid: boolean;
-  user?: User;
-}
-
-export interface LogoutResponse {
-  message: string;
-}
-
-export interface ResetPasswordData {
-  current_password: string;
-  password: string;
-  password_confirmation: string;
-}
-
-export interface ResetPasswordResponse {
-  message: string;
-}
+import { CompanyContextType } from "./types";
+export const getCompanyData = async () => {
+  return getData<{ data: CompanyContextType }>("/company");
+};
 
 export const registerUser = async (data: RegisterData) => {
   return postData<RegisterData, AuthResponse>("/register", data);

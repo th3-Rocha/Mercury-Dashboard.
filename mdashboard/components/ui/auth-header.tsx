@@ -12,7 +12,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useAuthContext } from "@/contexts/AuthContext";
-import { LogOut, User, Asterisk } from "lucide-react";
+import { User, LayoutDashboard, UserCircle, Building2 } from "lucide-react";
 
 interface AuthHeaderProps {
   linkHref: string;
@@ -20,16 +20,8 @@ interface AuthHeaderProps {
 }
 
 export default function AuthHeader({ linkHref, linkText }: AuthHeaderProps) {
-  const { isAuthenticated, user, isChecking, setIsAuthenticated, setUser } =
-    useAuthContext();
+  const { isAuthenticated, user, isChecking } = useAuthContext();
   const router = useRouter();
-
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    setIsAuthenticated(false);
-    setUser(null);
-    router.push("/");
-  };
 
   return (
     <header className="relative z-10 border-b border-zinc-800/50 backdrop-blur-sm">
@@ -38,7 +30,9 @@ export default function AuthHeader({ linkHref, linkText }: AuthHeaderProps) {
           <div className="w-8 h-8 rounded-lg bg-white flex items-center justify-center">
             <span className="text-black font-bold text-lg">M</span>
           </div>
-          <span className="text-white font-semibold text-xl">Mercury</span>
+          <span className="text-white font-semibold text-xl">
+            Mercury Fleet
+          </span>
         </Link>
 
         {isChecking ? (
@@ -60,18 +54,18 @@ export default function AuthHeader({ linkHref, linkText }: AuthHeaderProps) {
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem
-                onClick={() => router.push("/reset-password")}
-                className="cursor-pointer text-blue-400 focus:text-blue-300 focus:bg-blue-950/30"
+                onClick={() => router.push("/dashboard")}
+                className="cursor-pointer text-zinc-200 focus:text-white focus:bg-zinc-800/50"
               >
-                <Asterisk className="mr-2 h-4 w-4" />
-                <span>Reset Password</span>
+                <LayoutDashboard className="mr-2 h-4 w-4" />
+                <span>Dashboard</span>
               </DropdownMenuItem>
               <DropdownMenuItem
-                onClick={handleLogout}
-                className="cursor-pointer text-red-400 focus:text-red-300 focus:bg-red-950/30"
+                onClick={() => router.push("/account")}
+                className="cursor-pointer text-zinc-200 focus:text-white focus:bg-zinc-800/50"
               >
-                <LogOut className="mr-2 h-4 w-4" />
-                <span>Logout</span>
+                <UserCircle className="mr-2 h-4 w-4" />
+                <span>Account</span>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
