@@ -3,6 +3,7 @@ import { useRouter } from "next/navigation";
 import { loginUser, registerUser, logoutUser, resetPassword } from "@/lib/api";
 import { useAuthContext } from "@/contexts/AuthContext";
 import { LoginData, RegisterData } from "@/lib/types";
+import Cookies from "js-cookie";
 
 export function useAuth() {
   const [isLoading, setIsLoading] = useState(false);
@@ -20,7 +21,8 @@ export function useAuth() {
       const response = await loginUser(data);
 
       if (response.success && response.data) {
-        localStorage.setItem("token", response.data.token);
+        Cookies.set("token", response.data.token, { expires: 7 });
+
         setIsAuthenticated(true);
         setUser(response.data.user);
         router.push("/dashboard");
@@ -48,7 +50,7 @@ export function useAuth() {
       const response = await registerUser(data);
 
       if (response.success && response.data) {
-        localStorage.setItem("token", response.data.token);
+        Cookies.set("token", response.data.token, { expires: 7 });
         setIsAuthenticated(true);
         setUser(response.data.user);
         router.push("/register/success");
@@ -70,7 +72,7 @@ export function useAuth() {
 
   const logout = async () => {
     await logoutUser();
-    localStorage.removeItem("token");
+    Cookies.remove("token");
     setIsAuthenticated(false);
     setUser(null);
     router.push("/login");

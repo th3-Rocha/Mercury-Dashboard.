@@ -9,37 +9,6 @@ export type ShipmentStatus =
   | "completed"
   | "cancelled";
 
-export interface Shipment {
-  id?: string;
-  tracking_code: string;
-  origin_address: string;
-  origin_location: Point;
-  destination_address: string;
-  destination_location: Point;
-  current_location?: Point;
-
-  total_cost: number;
-  profit: number;
-  fuel_spent: number;
-  fuel_liters: number;
-
-  status: ShipmentStatus;
-  progress_percentage: number;
-  distance_km: number;
-  distance_completed_km: number;
-
-  scheduled_date?: string | null;
-  started_at?: string | null;
-  completed_at?: string | null;
-  max_delivery_date: string;
-
-  notes?: string | null;
-  cargo_details?: any;
-
-  created_at?: string;
-  updated_at?: string;
-}
-
 export interface RegisterData {
   name: string;
   email: string;
@@ -88,10 +57,23 @@ export interface AuthContextType {
   setUser: (user: User | null) => void;
   setIsAuthenticated: (value: boolean) => void;
 }
-export type CompanyStatus = "trial" | "active" | "suspended";
+
+export enum CompanyStatus {
+  ACTIVE = "ACTIVE",
+  INACTIVE = "INACTIVE",
+  PENDING = "PENDING",
+}
+interface CompanyDataFromApi {
+  name: string;
+  hexColor: string;
+  walletBalance: number;
+}
 export interface CompanyContextType {
+  id?: string;
   name: string;
   status: CompanyStatus;
   walletBalance: number;
-  //   shipments: Shipment[];
+  hexColor: string;
+  isLoading: boolean;
+  fetchCompany: () => Promise<void>;
 }

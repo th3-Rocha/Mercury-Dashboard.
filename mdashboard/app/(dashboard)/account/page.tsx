@@ -7,6 +7,7 @@ import { useAuthContext } from "@/contexts/AuthContext";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { LogOut, Asterisk } from "lucide-react";
+import Cookies from "js-cookie";
 
 export default function Account() {
   const { isAuthenticated, setIsAuthenticated, setUser } = useAuthContext();
@@ -19,7 +20,7 @@ export default function Account() {
   }, [isAuthenticated, router]);
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
+    Cookies.remove("token");
     setIsAuthenticated(false);
     setUser(null);
     router.push("/");

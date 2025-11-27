@@ -51,9 +51,9 @@ export default function RegisterAproved() {
                 </div>
               </div>
 
-              <Link href="/login" className="block">
+              <Link href="/dashboard" className="block">
                 <Button className="w-full bg-blue-600 cursor-pointer hover:bg-blue-700 text-white">
-                  Go to Login
+                  Go to Dashboard
                 </Button>
               </Link>
             </div>

@@ -5,37 +5,59 @@ import {
   useState,
   useEffect,
   ReactNode,
+  useCallback,
+  useRef, // <--- Importe o useRef
 } from "react";
 
 import { CompanyContextType } from "@/lib/types";
 import { getCompanyData } from "@/lib/api";
-
-import { Shipment } from "@/lib/types";
+import { CompanyStatus } from "@/lib/types";
 
 const CompanyContext = createContext<CompanyContextType | undefined>(undefined);
 
 export function CompanyProvider({ children }: { children: ReactNode }) {
-  const [name, setName] = useState<string>("a");
-  const [status, setStatus] = useState<"trial" | "active" | "suspended">(
-    "trial"
-  );
+  const [isLoading, setIsLoading] = useState(true);
+  const [name, setName] = useState<string>("");
+  const [hexColor, setHexColor] = useState<string>("#000000");
+  const [status, setStatus] = useState<CompanyStatus>(CompanyStatus.ACTIVE);
   const [walletBalance, setWalletBalance] = useState(0);
 
+  const isMounted = useRef(true);
+
   useEffect(() => {
-    async function fetchCompany() {
+    isMounted.current = true;
+    return () => {
+      isMounted.current = false;
+    };
+  }, []);
+
+  const fetchCompany = useCallback(async () => {
+    try {
       const res = await getCompanyData();
 
-      if (res.success && res.data) {
+      if (isMounted.current && res.success && res.data) {
         setName(res.data.data.name);
         setStatus(res.data.data.status);
         setWalletBalance(Number(res.data.data.walletBalance));
+        setHexColor(res.data.data.hexColor);
+      }
+    } catch (error) {
+      console.error("Erro ao buscar empresa:", error);
+    } finally {
+      if (isMounted.current) {
+        setIsLoading(false);
       }
     }
-    fetchCompany();
   }, []);
 
+  useEffect(() => {
+    fetchCompany();
+  }, [fetchCompany]);
+
   return (
-    <CompanyContext.Provider value={{ name, status, walletBalance }}>
+    <CompanyContext.Provider
+      value={{ name, status, walletBalance, hexColor, isLoading, fetchCompany }}
+    >
       {children}
     </CompanyContext.Provider>
   );
@@ -44,7 +66,7 @@ export function CompanyProvider({ children }: { children: ReactNode }) {
 export function useCompanyContext() {
   const context = useContext(CompanyContext);
   if (context === undefined) {
-    throw new Error("useCompanyContext must be used within an AuthProvider");
+    throw new Error("useCompanyContext must be used within a CompanyProvider");
   }
   return context;
 }

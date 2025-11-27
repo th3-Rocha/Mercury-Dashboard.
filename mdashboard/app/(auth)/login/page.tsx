@@ -2,8 +2,7 @@ import MouseLight from "@/src/components/MouseLight";
 import AuthHeader from "@/components/ui/auth-header";
 import GridBackground from "@/components/ui/grid-background";
 
-import { RegisterForm } from "@/components/auth/register-form";
-import { LoginForm } from "@/components/auth/login-form";
+import { LoginForm } from "@/app/(auth)/login/login-form";
 
 export default function Register() {
   return (

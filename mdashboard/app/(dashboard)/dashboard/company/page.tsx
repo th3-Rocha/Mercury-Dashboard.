@@ -4,17 +4,39 @@ import AuthHeader from "@/components/ui/auth-header";
 import GridBackground from "@/components/ui/grid-background";
 import { useAuthContext } from "@/contexts/AuthContext";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { CompanyForm } from "./company-form";
+import { useCompanyContext } from "@/contexts/CompanyContext";
+import { CompanyContextType } from "@/lib/types";
 
 export default function Company() {
   const { isAuthenticated } = useAuthContext();
+  const { name, hexColor, status, walletBalance } = useCompanyContext();
   const router = useRouter();
+  const [companyData, setCompanyData] = useState<CompanyContextType>({
+    id: "1",
+    name: name,
+    status: status,
+    walletBalance: walletBalance,
+    hexColor: hexColor,
+  });
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (!isAuthenticated) {
       router.push("/");
     }
   }, [isAuthenticated, router]);
+
+  const handleFormSubmit = async (data: CompanyContextType) => {
+    setIsLoading(true);
+    console.log("Formulário enviado:", data);
+    // Simule uma chamada de API
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    setCompanyData(data);
+    setIsLoading(false);
+    alert("Informações da empresa salvas com sucesso!");
+  };
 
   return (
     <div className="relative flex min-h-screen flex-col bg-black overflow-hidden">
@@ -28,9 +50,14 @@ export default function Company() {
             Company Settings
           </h1>
           <div className="bg-zinc-900/50 border border-zinc-800 rounded-lg p-6">
-            <p className="text-zinc-400">
+            <p className="text-zinc-400 mb-4">
               Manage your company information and settings.
             </p>
+            <CompanyForm
+              initialData={companyData}
+              onSubmit={handleFormSubmit}
+              isLoading={isLoading}
+            />
           </div>
         </div>
       </main>

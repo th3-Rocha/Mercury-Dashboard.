@@ -2,20 +2,10 @@
 import MouseLight from "@/src/components/MouseLight";
 import AuthHeader from "@/components/ui/auth-header";
 import GridBackground from "@/components/ui/grid-background";
-import { useAuthContext } from "@/contexts/AuthContext";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
 import Content from "@/components/ui/content";
 import Sidebar from "@/components/ui/sidebar";
 
 export default function Dashboard() {
-  const { isAuthenticated } = useAuthContext();
-  const router = useRouter();
-  useEffect(() => {
-    if (!isAuthenticated) {
-      router.push("/");
-    }
-  }, [isAuthenticated, router]);
   return (
     <div className="relative flex min-h-screen flex-col bg-black overflow-hidden">
       <GridBackground />

@@ -9,7 +9,7 @@ import {
 } from "react";
 import { validateToken } from "@/lib/api";
 import { AuthContextType, User } from "@/lib/types";
-
+import Cookies from "js-cookie";
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
@@ -22,8 +22,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const checkAuth = async () => {
-    const token = localStorage.getItem("token");
-
+    const token = Cookies.get("token");
+    console.log(token);
     if (!token) {
       setIsAuthenticated(false);
       setUser(null);
@@ -40,13 +40,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       } else {
         setIsAuthenticated(false);
         setUser(null);
-        localStorage.removeItem("token");
+        Cookies.remove("token");
       }
     } catch (err) {
       console.error("Error validating token:", err);
       setIsAuthenticated(false);
       setUser(null);
-      localStorage.removeItem("token");
+      Cookies.remove("token");
     } finally {
       setIsChecking(false);
     }

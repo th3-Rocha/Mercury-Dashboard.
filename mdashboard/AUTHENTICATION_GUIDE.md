@@ -121,12 +121,12 @@ export default function ProtectedPage() {
 
 ## 🔒 Fluxo de segurança
 
-1. **Usuário faz login** → Token salvo no localStorage
+1. **Usuário faz login** → Token salvo no coockiesjs
 2. **Página carrega** → `useAuth` verifica se tem token
 3. **Se tem token** → Chama `/api/auth/validate` no backend
 4. **Backend valida** → Verifica se token é válido, não expirou, usuário existe
 5. **Retorna resultado** → Frontend define `isAuthenticated` e `user`
-6. **Token inválido** → Limpa localStorage e redireciona para login
+6. **Token inválido** → Limpa coockiesjs e redireciona para login
 
 ## ⚠️ Importante
 

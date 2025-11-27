@@ -1,13 +1,12 @@
 import MouseLight from "@/src/components/MouseLight";
 import ApiHealth from "@/components/ui/api-health";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
 import GridBackground from "@/components/ui/grid-background";
 import AuthHeader from "@/components/ui/auth-header";
 
 export default function Home() {
   return (
-    <div className="relative flex min-h-screen flex-col bg-black overflow-hidden">
+    <div className="relative flex min-h-screen flex-col bg-black overflow-hidden ">
       <GridBackground />
 
       <MouseLight />
@@ -24,7 +23,7 @@ export default function Home() {
         </h1>
 
         <p className="text-lg md:text-xl text-zinc-400 mb-8 max-w-2xl leading-relaxed">
-          "Mercury Fleet is a high-performance Transportation Management System
+          Mercury Fleet is a high-performance Transportation Management System
           (TMS).
         </p>
 
