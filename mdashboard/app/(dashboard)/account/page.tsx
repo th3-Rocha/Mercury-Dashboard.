@@ -27,11 +27,7 @@ export default function Account() {
   };
 
   return (
-    <div className="relative flex min-h-screen flex-col bg-black overflow-hidden">
-      <GridBackground />
-      <MouseLight />
-      <AuthHeader linkHref="/login" linkText="Login" />
-
+    <div className="relative flex flex-col  overflow-hidden">
       <main className="relative z-10 flex-1 flex items-start justify-center p-6">
         <div className="w-full max-w-4xl">
           <h1 className="text-white text-3xl font-bold mb-6">

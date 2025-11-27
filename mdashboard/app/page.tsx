@@ -1,18 +1,9 @@
-import MouseLight from "@/src/components/MouseLight";
 import ApiHealth from "@/components/ui/api-health";
 import Link from "next/link";
-import GridBackground from "@/components/ui/grid-background";
-import AuthHeader from "@/components/ui/auth-header";
 
 export default function Home() {
   return (
-    <div className="relative flex min-h-screen flex-col bg-black overflow-hidden ">
-      <GridBackground />
-
-      <MouseLight />
-
-      <AuthHeader linkHref="/login" linkText="Login" />
-
+    <div className="relative flex h-full flex-col bg-transparent overflow-hidden ">
       <main className="relative z-10 flex flex-1  flex-col items-center justify-start text-center p-8 max-w-4xl mx-auto">
         <div className="mb-8 inline-block px-4 py-2 rounded-full bg-zinc-800/50 border border-zinc-700">
           <span className="text-sm text-zinc-300">Administrative Panel</span>

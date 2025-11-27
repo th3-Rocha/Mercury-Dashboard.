@@ -1,4 +1,5 @@
 "use client";
+
 import {
   createContext,
   useContext,
@@ -6,7 +7,7 @@ import {
   useEffect,
   ReactNode,
   useCallback,
-  useRef, // <--- Importe o useRef
+  useRef,
 } from "react";
 
 import { CompanyContextType } from "@/lib/types";
@@ -22,7 +23,7 @@ export function CompanyProvider({ children }: { children: ReactNode }) {
   const [status, setStatus] = useState<CompanyStatus>(CompanyStatus.ACTIVE);
   const [walletBalance, setWalletBalance] = useState(0);
 
-  const isMounted = useRef(true);
+  const isMounted = useRef(false);
 
   useEffect(() => {
     isMounted.current = true;
@@ -50,8 +51,11 @@ export function CompanyProvider({ children }: { children: ReactNode }) {
     }
   }, []);
 
+  // Mover a chamada para dentro de um useEffect separado
   useEffect(() => {
-    fetchCompany();
+    if (isMounted.current) {
+      fetchCompany();
+    }
   }, [fetchCompany]);
 
   return (

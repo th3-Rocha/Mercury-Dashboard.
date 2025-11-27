@@ -1,6 +1,3 @@
-import MouseLight from "@/src/components/MouseLight";
-import AuthHeader from "@/components/ui/auth-header";
-import GridBackground from "@/components/ui/grid-background";
 import { Card } from "@/components/ui/card";
 import { CheckCircle2, Mail } from "lucide-react";
 import Link from "next/link";
@@ -8,13 +5,7 @@ import { Button } from "@/components/ui/button";
 
 export default function RegisterAproved() {
   return (
-    <div className="relative flex min-h-screen flex-col bg-black overflow-hidden">
-      <GridBackground />
-
-      <MouseLight />
-
-      <AuthHeader linkHref="/login" linkText="Login" />
-
+    <div className="relative flex  flex-col  overflow-hidden">
       <main className="relative z-10 flex-1 flex items-start justify-center p-6">
         <Card className="w-full max-w-md bg-zinc-900/50 border-zinc-800">
           <div className="p-6">

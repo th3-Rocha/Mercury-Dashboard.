@@ -12,7 +12,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useAuthContext } from "@/contexts/AuthContext";
-import { User, LayoutDashboard, UserCircle, Building2 } from "lucide-react";
+import { User, LayoutDashboard, UserCircle } from "lucide-react";
 
 interface AuthHeaderProps {
   linkHref: string;
@@ -35,9 +35,7 @@ export default function AuthHeader({ linkHref, linkText }: AuthHeaderProps) {
           </span>
         </Link>
 
-        {isChecking ? (
-          <div className="px-6 py-2 text-zinc-400">.</div>
-        ) : isAuthenticated && user ? (
+        {isAuthenticated && user ? (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button
@@ -71,7 +69,10 @@ export default function AuthHeader({ linkHref, linkText }: AuthHeaderProps) {
           </DropdownMenu>
         ) : (
           <Link href={linkHref}>
-            <Button className="px-6 py-2 bg-white text-black cursor-pointer font-medium rounded-lg hover:bg-zinc-200 transition-colors">
+            <Button
+              disabled={isChecking}
+              className="px-6 py-2 bg-white text-black cursor-pointer font-medium rounded-lg hover:bg-zinc-200 transition-colors"
+            >
               {linkText}
             </Button>
           </Link>
