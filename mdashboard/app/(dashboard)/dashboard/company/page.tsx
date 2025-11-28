@@ -2,7 +2,6 @@
 import { useAuthContext } from "@/contexts/AuthContext";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { CompanyForm } from "./company-form";
 import { useCompanyContext } from "@/contexts/CompanyContext";
 import { CompanyContextType } from "@/lib/types";
 
@@ -16,6 +15,8 @@ export default function Company() {
     status: status,
     walletBalance: walletBalance,
     hexColor: hexColor,
+    isLoading: false,
+    fetchCompany: async () => {},
   });
   const [isLoading, setIsLoading] = useState(false);
 
@@ -28,7 +29,6 @@ export default function Company() {
   const handleFormSubmit = async (data: CompanyContextType) => {
     setIsLoading(true);
     console.log("Formulário enviado:", data);
-    // Simule uma chamada de API
     await new Promise((resolve) => setTimeout(resolve, 1000));
     setCompanyData(data);
     setIsLoading(false);
@@ -46,11 +46,6 @@ export default function Company() {
             <p className="text-zinc-400 mb-4">
               Manage your company information and settings.
             </p>
-            <CompanyForm
-              initialData={companyData}
-              onSubmit={handleFormSubmit}
-              isLoading={isLoading}
-            />
           </div>
         </div>
       </main>
