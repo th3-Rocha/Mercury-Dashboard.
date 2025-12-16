@@ -33,7 +33,7 @@ export default function HelpPage() {
                                 <h3 className="text-white font-semibold mb-1">1. Create a Truck</h3>
                                 <p className="text-zinc-400 text-sm">Add at least one truck to your fleet with license plate and max payload.</p>
                                 <Link href="/dashboard/trucks">
-                                    <Button variant="link" className="text-blue-400 px-0 h-auto mt-2">
+                                    <Button variant="link" className="text-blue-400 px-0 h-auto mt-2 cursor-pointer">
                                         Go to Trucks <ArrowRight className="w-3 h-3 ml-1" />
                                     </Button>
                                 </Link>
@@ -46,7 +46,7 @@ export default function HelpPage() {
                                 <h3 className="text-white font-semibold mb-1">2. Create an Employee</h3>
                                 <p className="text-zinc-400 text-sm">Register a driver with their CNH, CPF, and other required information.</p>
                                 <Link href="/dashboard/employees">
-                                    <Button variant="link" className="text-blue-400 px-0 h-auto mt-2">
+                                    <Button variant="link" className="text-blue-400 px-0 h-auto mt-2  cursor-pointer">
                                         Go to Employees <ArrowRight className="w-3 h-3 ml-1" />
                                     </Button>
                                 </Link>
@@ -59,7 +59,7 @@ export default function HelpPage() {
                                 <h3 className="text-white font-semibold mb-1">3. Create a Recipient</h3>
                                 <p className="text-zinc-400 text-sm">Add the delivery recipient with their contact details and full address.</p>
                                 <Link href="/dashboard/recipients">
-                                    <Button variant="link" className="text-blue-400 px-0 h-auto mt-2">
+                                    <Button variant="link" className="text-blue-400 px-0 h-auto mt-2 cursor-pointer">
                                         Go to Recipients <ArrowRight className="w-3 h-3 ml-1" />
                                     </Button>
                                 </Link>
@@ -72,7 +72,7 @@ export default function HelpPage() {
                                 <h3 className="text-white font-semibold mb-1">4. Create Your Shipment</h3>
                                 <p className="text-zinc-400 text-sm">Once you have all three items above, you can create and manage shipments.</p>
                                 <Link href="/dashboard/shipments">
-                                    <Button variant="link" className="text-emerald-400 px-0 h-auto mt-2">
+                                    <Button variant="link" className="text-emerald-400 px-0 h-auto mt-2 cursor-pointer">
                                         Go to Shipments <ArrowRight className="w-3 h-3 ml-1" />
                                     </Button>
                                 </Link>
