@@ -84,14 +84,14 @@ export default function EmployeesPage() {
     return (
         <div className="w-full flex flex-col h-full min-h-0">
             {/* Header */}
-            <div className="flex justify-between items-center mb-6 flex-none">
-                <h1 className="text-white text-3xl font-bold">Employees</h1>
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 sm:mb-6 gap-3 sm:gap-0 flex-none">
+                <h1 className="text-white text-2xl sm:text-3xl font-bold">Employees</h1>
                 <Button
                     onClick={() => {
                         setEditingEmployee(null);
                         setShowForm(!showForm);
                     }}
-                    className="flex bg-white hover:bg-gray-100 disabled:opacity-50 cursor-pointer"
+                    className="flex bg-white hover:bg-gray-100 disabled:opacity-50 cursor-pointer w-full sm:w-auto justify-center"
                 >
                     <Plus className="w-4 h-4" />
                     Add Employee
@@ -161,7 +161,7 @@ export default function EmployeesPage() {
                         </p>
                     </div>
                 ) : (
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pb-2">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 pb-2">
                         {employees?.map((emp) => (
                             <EmployeeCard
                                 key={emp.id}
