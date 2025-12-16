@@ -93,7 +93,7 @@ export default function Sidebar() {
           <NavItem href="/dashboard/company" icon={Settings}>
             Settings
           </NavItem>
-          <NavItem href="#" icon={HelpCircle}>
+          <NavItem href="/help" icon={HelpCircle}>
             Help
           </NavItem>
         </div>
