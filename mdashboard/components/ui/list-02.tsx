@@ -6,7 +6,11 @@ import { useMemo } from "react";
 import { Map, MapMarker, MapTileLayer } from "@/components/ui/map";
 import { useShipmentsContext } from "@/contexts/ShipmentsContext";
 
-export default function ViewTrucksMapRealtime() {
+interface ViewTrucksMapRealtimeProps {
+  className?: string;
+}
+
+export default function ViewTrucksMapRealtime({ className }: ViewTrucksMapRealtimeProps) {
   const { shipments, isLoading } = useShipmentsContext();
 
   const points = useMemo(() => {
@@ -49,7 +53,7 @@ export default function ViewTrucksMapRealtime() {
   }, [points]);
 
   return (
-    <div className="bg-zinc-900/50 border border-zinc-800 rounded-lg p-4 space-y-3">
+    <div className={`bg-zinc-900/50 border border-zinc-800 rounded-lg p-4 space-y-3 ${className || ""}`}>
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2 text-white">
           <Truck className="w-4 h-4 text-zinc-300" />
