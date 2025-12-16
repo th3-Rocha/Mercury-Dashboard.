@@ -13,10 +13,10 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "../ui/input";
 import { useAuthContext } from "@/contexts/AuthContext";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { Input } from "@/components/ui/input";
 
 const formSchema = z
   .object({
@@ -47,15 +47,6 @@ export function ResetPasswordForm() {
   const [success, setSuccess] = useState(false);
   const router = useRouter();
 
-  if (isChecking) {
-    return <div className="text-white text-center py-8">Loading...</div>;
-  }
-
-  if (!isAuthenticated) {
-    router.push("/login");
-    return null;
-  }
-
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -64,6 +55,15 @@ export function ResetPasswordForm() {
       confirmPassword: "",
     },
   });
+
+  if (isChecking) {
+    return <div className="text-white text-center py-8">Loading...</div>;
+  }
+
+  if (!isAuthenticated) {
+    router.push("/login");
+    return null;
+  }
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     const result = await changePassword(

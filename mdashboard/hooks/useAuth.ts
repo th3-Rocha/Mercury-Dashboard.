@@ -21,7 +21,10 @@ export function useAuth() {
       const response = await loginUser(data);
 
       if (response.success && response.data) {
-        Cookies.set("token", response.data.token, { expires: 7 });
+        const token = (response.data as any).access_token ?? (response.data as any).acess_token;
+        if (token) {
+          Cookies.set("access_token", token, { expires: 7, path: '/' });
+        }
 
         setIsAuthenticated(true);
         setUser(response.data.user);
@@ -42,6 +45,8 @@ export function useAuth() {
     }
   };
 
+
+
   const register = async (data: RegisterData) => {
     setIsLoading(true);
     setError("");
@@ -50,7 +55,10 @@ export function useAuth() {
       const response = await registerUser(data);
 
       if (response.success && response.data) {
-        Cookies.set("token", response.data.token, { expires: 7 });
+        const token = (response.data as any).access_token ?? (response.data as any).acess_token;
+        if (token) {
+          Cookies.set("access_token", token, { expires: 7, path: '/' });
+        }
         setIsAuthenticated(true);
         setUser(response.data.user);
         router.push("/register/success");
@@ -72,8 +80,7 @@ export function useAuth() {
 
   const logout = async () => {
     await logoutUser();
-    Cookies.remove("token");
-    setIsAuthenticated(false);
+    Cookies.remove("access_token", { path: '/' }); setIsAuthenticated(false);
     setUser(null);
     router.push("/login");
   };

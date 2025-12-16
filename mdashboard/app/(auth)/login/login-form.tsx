@@ -87,7 +87,6 @@ export function LoginForm() {
                     className="bg-zinc-900 border-zinc-800 text-white placeholder:text-zinc-500 focus-visible:ring-indigo-500 pr-10" // pr-10 para o texto não ficar embaixo do ícone
                     {...field}
                   />
-
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}

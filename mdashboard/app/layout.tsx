@@ -42,7 +42,7 @@ export default function RootLayout({
             <div className="flex-none z-10">
               <AuthHeader linkHref="/login" linkText="Login" />
             </div>
-            <main className="flex-1 overflow-y-auto overflow-x-hidden p-6">
+            <main className="flex-1  overflow-x-hidden p-6 ">
               {children}
             </main>
           </div>

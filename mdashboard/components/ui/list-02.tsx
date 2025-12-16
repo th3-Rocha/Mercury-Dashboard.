@@ -1,196 +1,96 @@
-import { cn } from "@/lib/utils"
-import {
-  ArrowUpRight,
-  ArrowDownLeft,
-  Wallet,
-  ShoppingCart,
-  CreditCard,
-  type LucideIcon,
-  ArrowRight,
-} from "lucide-react"
 
-interface Transaction {
-  id: string
-  title: string
-  amount: string
-  type: "incoming" | "outgoing"
-  category: string
-  icon: LucideIcon
-  timestamp: string
-  status: "completed" | "pending" | "failed"
-}
+"use client";
 
-interface List02Props {
-  transactions?: Transaction[]
-  className?: string
-}
+import { Navigation, Truck } from "lucide-react";
+import { useMemo } from "react";
+import { Map, MapMarker, MapTileLayer } from "@/components/ui/map";
+import { useShipmentsContext } from "@/contexts/ShipmentsContext";
 
-const categoryStyles = {
-  shopping: "bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100",
-  food: "bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100",
-  transport: "bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100",
-  entertainment: "bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100",
-}
+export default function ViewTrucksMapRealtime() {
+  const { shipments, isLoading } = useShipmentsContext();
 
-const TRANSACTIONS: Transaction[] = [
-  {
-    id: "1",
-    title: "Apple Store Purchase",
-    amount: "$999.00",
-    type: "outgoing",
-    category: "shopping",
-    icon: ShoppingCart,
-    timestamp: "Today, 2:45 PM",
-    status: "completed",
-  },
-  {
-    id: "2",
-    title: "Salary Deposit",
-    amount: "$4,500.00",
-    type: "incoming",
-    category: "transport",
-    icon: Wallet,
-    timestamp: "Today, 9:00 AM",
-    status: "completed",
-  },
-  {
-    id: "3",
-    title: "Netflix Subscription",
-    amount: "$15.99",
-    type: "outgoing",
-    category: "entertainment",
-    icon: CreditCard,
-    timestamp: "Yesterday",
-    status: "pending",
-  },
-  {
-    id: "4",
-    title: "Apple Store Purchase",
-    amount: "$999.00",
-    type: "outgoing",
-    category: "shopping",
-    icon: ShoppingCart,
-    timestamp: "Today, 2:45 PM",
-    status: "completed",
-  },
-  {
-    id: "5",
-    title: "Supabase Subscription",
-    amount: "$15.99",
-    type: "outgoing",
-    category: "entertainment",
-    icon: CreditCard,
-    timestamp: "Yesterday",
-    status: "pending",
-  },
-  {
-    id: "6",
-    title: "Vercel Subscription",
-    amount: "$15.99",
-    type: "outgoing",
-    category: "entertainment",
-    icon: CreditCard,
-    timestamp: "Yesterday",
-    status: "pending",
-  },
-]
+  const points = useMemo(() => {
+    if (!shipments) return [];
+    return shipments
+      .map((s) => {
+        // Prefer explicit current lat/lng, then latest event, then delivery, then start.
+        const latestEvent = (s.events || [])
+          .slice()
+          .sort((a, b) => new Date(b.recordedAt).getTime() - new Date(a.recordedAt).getTime())[0];
 
-export default function List02({ transactions = TRANSACTIONS, className }: List02Props) {
+        const lat =
+          (typeof s.currentLat === "number" ? s.currentLat : undefined) ??
+          (latestEvent ? latestEvent.latitude : undefined) ??
+          s.deliveryLat ??
+          s.startLat;
+        const lng =
+          (typeof s.currentLng === "number" ? s.currentLng : undefined) ??
+          (latestEvent ? latestEvent.longitude : undefined) ??
+          s.deliveryLng ??
+          s.startLng;
+
+        if (typeof lat !== "number" || typeof lng !== "number") return null;
+
+        return {
+          id: s.id,
+          title: s.deliveryAddress,
+          status: s.status,
+          lat,
+          lng,
+        };
+      })
+      .filter(Boolean) as { id: string; title: string; status: string; lat: number; lng: number }[];
+  }, [shipments]);
+
+  const mapCenter = useMemo<[number, number]>(() => {
+    if (points.length === 0) return [-23.5505, -46.6333]; // São Paulo fallback
+    const [first] = points;
+    return [first.lat, first.lng];
+  }, [points]);
+
   return (
-    <div
-      className={cn(
-        "w-full max-w-xl mx-auto",
-        "bg-white dark:bg-zinc-900/70",
-        "border border-zinc-100 dark:border-zinc-800",
-        "rounded-xl shadow-sm backdrop-blur-xl",
-        className,
-      )}
-    >
-      <div className="p-4">
-        <div className="flex items-center justify-between mb-3">
-          <h2 className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">
-            Recent Activity
-            <span className="text-xs font-normal text-zinc-600 dark:text-zinc-400 ml-1">(23 transactions)</span>
-          </h2>
-          <span className="text-xs text-zinc-600 dark:text-zinc-400">This Month</span>
+    <div className="bg-zinc-900/50 border border-zinc-800 rounded-lg p-4 space-y-3">
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-2 text-white">
+          <Truck className="w-4 h-4 text-zinc-300" />
+          <div>
+            <p className="text-sm font-semibold">Live Shipment Map</p>
+          </div>
         </div>
 
-        <div className="space-y-1">
-          {transactions.map((transaction) => (
-            <div
-              key={transaction.id}
-              className={cn(
-                "group flex items-center gap-3",
-                "p-2 rounded-lg",
-                "hover:bg-zinc-100 dark:hover:bg-zinc-800/50",
-                "transition-all duration-200",
-              )}
-            >
-              <div
-                className={cn(
-                  "p-2 rounded-lg",
-                  "bg-zinc-100 dark:bg-zinc-800",
-                  "border border-zinc-200 dark:border-zinc-700",
-                )}
+      </div>
+
+      <div className="w-full h-122 rounded-lg border border-zinc-800 overflow-hidden">
+        {isLoading ? (
+          <div className="w-full h-full bg-zinc-900 flex items-center justify-center text-zinc-400">
+            Loading map...
+          </div>
+        ) : (
+          <Map center={mapCenter} zoom={3} className="w-full h-full rounded-none">
+            <MapTileLayer
+              name="Dark"
+              url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
+            />
+            {points.map((p) => (
+              <MapMarker
+                key={p.id}
+                position={[p.lat, p.lng]}
+                icon={<Truck className="w-5 h-5 text-emerald-300" />}
               >
-                <transaction.icon className="w-4 h-4 text-zinc-900 dark:text-zinc-100" />
-              </div>
-
-              <div className="flex-1 flex items-center justify-between min-w-0">
-                <div className="space-y-0.5">
-                  <h3 className="text-xs font-medium text-zinc-900 dark:text-zinc-100">{transaction.title}</h3>
-                  <p className="text-[11px] text-zinc-600 dark:text-zinc-400">{transaction.timestamp}</p>
+                <div className="text-xs text-zinc-900">
+                  <p className="font-semibold">{p.title}</p>
+                  <p className="capitalize text-zinc-700">{p.status.replace(/_/g, " ")}</p>
                 </div>
-
-                <div className="flex items-center gap-1.5 pl-3">
-                  <span
-                    className={cn(
-                      "text-xs font-medium",
-                      transaction.type === "incoming"
-                        ? "text-emerald-600 dark:text-emerald-400"
-                        : "text-red-600 dark:text-red-400",
-                    )}
-                  >
-                    {transaction.type === "incoming" ? "+" : "-"}
-                    {transaction.amount}
-                  </span>
-                  {transaction.type === "incoming" ? (
-                    <ArrowDownLeft className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
-                  ) : (
-                    <ArrowUpRight className="w-3.5 h-3.5 text-red-600 dark:text-red-400" />
-                  )}
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
+              </MapMarker>
+            ))}
+          </Map>
+        )}
       </div>
 
-      <div className="p-2 border-t border-zinc-100 dark:border-zinc-800">
-        <button
-          type="button"
-          className={cn(
-            "w-full flex items-center justify-center gap-2",
-            "py-2 px-3 rounded-lg",
-            "text-xs font-medium",
-            "bg-gradient-to-r from-zinc-900 to-zinc-800",
-            "dark:from-zinc-50 dark:to-zinc-200",
-            "text-zinc-50 dark:text-zinc-900",
-            "hover:from-zinc-800 hover:to-zinc-700",
-            "dark:hover:from-zinc-200 dark:hover:to-zinc-300",
-            "shadow-sm hover:shadow",
-            "transform transition-all duration-200",
-            "hover:-translate-y-0.5",
-            "active:translate-y-0",
-            "focus:outline-none focus:ring-2",
-            "focus:ring-zinc-500 dark:focus:ring-zinc-400",
-            "focus:ring-offset-2 dark:focus:ring-offset-zinc-900",
-          )}
-        >
-          <span>View All Transactions</span>
-          <ArrowRight className="w-3.5 h-3.5" />
-        </button>
-      </div>
+      {!isLoading && points.length === 0 && (
+        <div className="text-xs text-zinc-500">No shipment locations available yet.</div>
+      )}
     </div>
-  )
+  );
 }

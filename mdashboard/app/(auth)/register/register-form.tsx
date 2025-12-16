@@ -15,6 +15,8 @@ import {
 } from "@/components/ui/form";
 import { useAuthContext } from "@/contexts/AuthContext";
 import { Input } from "@/components/ui/input";
+import { Eye, EyeOff } from "lucide-react";
+import { useState } from "react";
 
 const formSchema = z
   .object({
@@ -45,7 +47,7 @@ const formSchema = z
 export function RegisterForm() {
   const { register, isLoading, error } = useAuth();
   const { isAuthenticated } = useAuthContext();
-
+  const [showPassword, setShowPassword] = useState(false);
   if (isAuthenticated) {
   }
 
@@ -114,15 +116,38 @@ export function RegisterForm() {
           name="password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="text-white">Password</FormLabel>
-              <FormControl>
-                <Input
-                  type="password"
-                  placeholder="••••••••"
-                  className="bg-zinc-900 border-zinc-800 text-white placeholder:text-zinc-500"
-                  {...field}
-                />
-              </FormControl>
+              <FormField
+                control={form.control}
+                name="password"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-white">Password</FormLabel>
+                    <div className="relative">
+                      <FormControl>
+                        <Input
+                          type={showPassword ? "text" : "password"}
+                          placeholder="••••••••"
+                          className="bg-zinc-900 border-zinc-800 text-white placeholder:text-zinc-500 pr-10"
+                          {...field}
+                        />
+                      </FormControl>
+                      <button
+                        type="button"
+                        onClick={() => setShowPassword(!showPassword)}
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-500 hover:text-white transition-colors"
+                      >
+                        {showPassword ? (
+                          <EyeOff className="h-4 w-4" />
+                        ) : (
+                          <Eye className="h-4 w-4" />
+                        )}
+                      </button>
+                    </div>
+
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
               <div className="h-5">
                 <FormMessage />
               </div>
@@ -135,13 +160,27 @@ export function RegisterForm() {
           render={({ field }) => (
             <FormItem>
               <FormLabel className="text-white">Confirm Password</FormLabel>
+
               <FormControl>
-                <Input
-                  type="password"
-                  placeholder="••••••••"
-                  className="bg-zinc-900 border-zinc-800 text-white placeholder:text-zinc-500"
-                  {...field}
-                />
+                <div className="relative">
+                  <Input
+                    type={showPassword ? "text" : "password"}
+                    placeholder="••••••••"
+                    className="bg-zinc-900 border-zinc-800 text-white placeholder:text-zinc-500"
+                    {...field}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-500 hover:text-white transition-colors"
+                  >
+                    {showPassword ? (
+                      <EyeOff className="h-4 w-4" />
+                    ) : (
+                      <Eye className="h-4 w-4" />
+                    )}
+                  </button>
+                </div>
               </FormControl>
               <div className="h-5">
                 <FormMessage />

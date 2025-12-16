@@ -21,9 +21,26 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     checkAuth();
   }, []);
 
+  useEffect(() => {
+    const onUnauthorized = () => {
+      setIsAuthenticated(false);
+      setUser(null);
+      setIsChecking(false);
+    };
+
+    if (typeof window !== "undefined") {
+      window.addEventListener("auth:unauthorized", onUnauthorized);
+    }
+
+    return () => {
+      if (typeof window !== "undefined") {
+        window.removeEventListener("auth:unauthorized", onUnauthorized);
+      }
+    };
+  }, []);
+
   const checkAuth = async () => {
-    const token = Cookies.get("token");
-    console.log(token);
+    const token = Cookies.get("access_token");
     if (!token) {
       setIsAuthenticated(false);
       setUser(null);
@@ -40,13 +57,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       } else {
         setIsAuthenticated(false);
         setUser(null);
-        Cookies.remove("token");
+        Cookies.remove("access_token", { path: '/' });
       }
     } catch (err) {
       console.error("Error validating token:", err);
       setIsAuthenticated(false);
       setUser(null);
-      Cookies.remove("token");
+      Cookies.remove("access_token", { path: '/' });
     } finally {
       setIsChecking(false);
     }

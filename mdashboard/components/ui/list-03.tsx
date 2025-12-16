@@ -90,7 +90,7 @@ const ITEMS: ListItem[] = [
   },
 ]
 
-export default function List03({ items = ITEMS, className }: List03Props) {
+export default function DashShipmentsEvents({ items = ITEMS, className }: List03Props) {
   return (
     <div className={cn("w-full overflow-x-auto scrollbar-none", className)}>
       <div className="flex gap-3 min-w-full p-1">

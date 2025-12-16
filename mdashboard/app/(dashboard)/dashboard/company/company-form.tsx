@@ -4,7 +4,6 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { CompanyStatus } from "@/lib/types";
 
 // UI Components
 import { Button } from "@/components/ui/button";
@@ -28,7 +27,7 @@ import {
 
 const companyFormSchema = z.object({
   name: z.string().min(1, "Company name is required"),
-  status: z.enum(CompanyStatus),
+  status: z.enum(["ACTIVE", "INACTIVE", "PENDING"]),
   walletBalance: z.coerce.number().min(0, "Wallet balance cannot be negative"),
   hexColor: z
     .string()
@@ -53,7 +52,7 @@ export function CompanyForm({
     resolver: zodResolver(companyFormSchema),
     defaultValues: initialData || {
       name: "",
-      status: CompanyStatus.ACTIVE,
+      status: "ACTIVE",
       walletBalance: 0,
       hexColor: "#FFFFFF",
     },
@@ -99,8 +98,7 @@ export function CompanyForm({
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent className="bg-zinc-900 border-zinc-800 text-white">
-                  {/* Convertendo Enum para Array para o map funcionar */}
-                  {Object.values(CompanyStatus).map((status) => (
+                  {["ACTIVE", "INACTIVE", "PENDING"].map((status) => (
                     <SelectItem
                       key={status}
                       value={status}
@@ -130,7 +128,7 @@ export function CompanyForm({
                   {...field}
                   value={
                     typeof field.value === "number" ||
-                    typeof field.value === "string"
+                      typeof field.value === "string"
                       ? field.value
                       : ""
                   }
