@@ -57,9 +57,10 @@ export function LoginForm() {
               <FormLabel className="text-white">Email</FormLabel>
               <FormControl>
                 <Input
+                  id="email"
                   type="email"
                   placeholder="your@email.com"
-                  autoComplete="email"
+                  autoComplete="username"
                   className="bg-zinc-900 border-zinc-800 text-white placeholder:text-zinc-500 focus-visible:ring-indigo-500"
                   {...field}
                 />
@@ -81,6 +82,7 @@ export function LoginForm() {
               <FormControl>
                 <div className="relative">
                   <Input
+                    id="password"
                     type={showPassword ? "text" : "password"}
                     placeholder="••••••••"
                     autoComplete="current-password"
