@@ -64,20 +64,20 @@ export function ShipmentCard({ shipment, onEdit, onDelete, onEvents, isDeleting 
                 </div>
                 {shipment.employee && (
                     <div className="flex justify-between items-center py-1 border-b border-zinc-800">
-                        <span className="text-zinc-400">Employee</span>
-                        <span className="text-white font-medium">{shipment.employee.name}</span>
+                        <span className="text-zinc-400 flex-shrink-0">Employee</span>
+                        <span className="text-white font-medium truncate max-w-[60%] ml-2">{shipment.employee.name}</span>
                     </div>
                 )}
                 {shipment.truck && (
                     <div className="flex justify-between items-center py-1 border-b border-zinc-800">
-                        <span className="text-zinc-400">Truck</span>
-                        <span className="text-white font-medium">{shipment.truck.licensePlate}</span>
+                        <span className="text-zinc-400 flex-shrink-0">Truck</span>
+                        <span className="text-white font-medium truncate max-w-[60%] ml-2">{shipment.truck.licensePlate}</span>
                     </div>
                 )}
                 {shipment.recipient && (
                     <div className="flex justify-between items-center py-1">
-                        <span className="text-zinc-400">Recipient</span>
-                        <span className="text-white font-medium">{shipment.recipient.name}</span>
+                        <span className="text-zinc-400 flex-shrink-0">Recipient</span>
+                        <span className="text-white font-medium truncate max-w-[60%] ml-2">{shipment.recipient.name}</span>
                     </div>
                 )}
             </div>

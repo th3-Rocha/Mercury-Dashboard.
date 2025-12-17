@@ -9,6 +9,7 @@ export function proxy(request: NextRequest) {
 
   const isDashboardRoute = request.nextUrl.pathname.startsWith("/dashboard");
   const isPublicRoute =
+    request.nextUrl.pathname === "/login" ||
     request.nextUrl.pathname === "/" ||
     request.nextUrl.pathname === "/register";
 

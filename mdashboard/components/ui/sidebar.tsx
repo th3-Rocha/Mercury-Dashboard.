@@ -51,7 +51,7 @@ export default function Sidebar() {
   const SidebarContent = () => (
     <div className="flex flex-col h-full">
       <div className="h-16 px-6 flex items-center justify-between border-b border-gray-200 dark:border-zinc-800">
-        <span className="text-lg font-semibold text-gray-900 dark:text-white">
+        <span className="text-lg font-semibold text-gray-900 dark:text-white truncate max-w-full">
           {company?.tradeName || <Skeleton className="w-36 h-5" />}
         </span>
       </div>

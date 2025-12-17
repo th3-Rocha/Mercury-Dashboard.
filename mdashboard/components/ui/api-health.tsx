@@ -10,10 +10,10 @@ export default function ApiHealth() {
     const checkHealth = async () => {
       try {
         const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_API_URL}health-check`
+          `${process.env.NEXT_PUBLIC_API_URL}health-check`,
         );
         setIsOnline(response.status === 200);
-      } catch (error) {
+      } catch (_error) {
         setIsOnline(false);
       }
     };
@@ -32,18 +32,21 @@ export default function ApiHealth() {
 
   return (
     <div
-      className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full border ${isOnline
-        ? "bg-green-500/10 border-green-500/30"
-        : "bg-red-500/10 border-red-500/30"
-        }`}
+      className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full border ${
+        isOnline
+          ? "bg-green-500/10 border-green-500/30"
+          : "bg-red-500/10 border-red-500/30"
+      }`}
     >
       <div
-        className={`w-2 h-2 rounded-full ${isOnline ? "bg-green-500 animate-pulse" : "bg-red-500"
-          }`}
+        className={`w-2 h-2 rounded-full ${
+          isOnline ? "bg-green-500 animate-pulse" : "bg-red-500"
+        }`}
       />
       <span
-        className={`text-sm font-medium ${isOnline ? "text-green-400" : "text-red-400"
-          }`}
+        className={`text-sm font-medium ${
+          isOnline ? "text-green-400" : "text-red-400"
+        }`}
       >
         API {isOnline ? "Online" : "Offline"}
       </span>

@@ -24,11 +24,11 @@ export function RecipientCard({
                     <div className="bg-amber-600/20 p-2 sm:p-3 rounded-lg">
                         <MapPin className="w-5 h-5 sm:w-6 sm:h-6 text-amber-400" />
                     </div>
-                    <div>
-                        <h3 className="text-white font-semibold text-base sm:text-lg">
+                    <div className="min-w-0 flex-1">
+                        <h3 className="text-white font-semibold text-base sm:text-lg break-words overflow-hidden">
                             {recipient.name}
                         </h3>
-                        <p className="text-zinc-400 text-xs sm:text-sm">
+                        <p className="text-zinc-400 text-xs sm:text-sm truncate">
                             ID: {recipient.id.slice(0, 8)}...
                         </p>
                     </div>
@@ -38,12 +38,12 @@ export function RecipientCard({
             {/* Details */}
             <div className="space-y-3 mb-4">
                 <div className="flex justify-between items-center py-2 border-b border-zinc-800">
-                    <span className="text-zinc-400 text-sm">Email</span>
-                    <span className="text-white font-medium text-sm">{recipient.email}</span>
+                    <span className="text-zinc-400 text-sm flex-shrink-0">Email</span>
+                    <span className="text-white font-medium text-sm truncate max-w-[60%] ml-2">{recipient.email}</span>
                 </div>
                 <div className="flex justify-between items-center py-2 border-b border-zinc-800">
-                    <span className="text-zinc-400 text-sm">Phone</span>
-                    <span className="text-white font-medium text-sm">{recipient.phone}</span>
+                    <span className="text-zinc-400 text-sm flex-shrink-0">Phone</span>
+                    <span className="text-white font-medium text-sm truncate max-w-[60%] ml-2">{recipient.phone}</span>
                 </div>
                 <div className="flex justify-between items-center py-2 border-b border-zinc-800">
                     <span className="text-zinc-400 text-sm">Address</span>

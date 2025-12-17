@@ -25,7 +25,7 @@ export function CompanyProvider({ children }: { children: ReactNode }) {
     {
       revalidateOnFocus: false,
       shouldRetryOnError: false,
-    }
+    },
   );
 
   const updateCompany = async (updateData: UpdateCompanyData) => {
@@ -38,13 +38,8 @@ export function CompanyProvider({ children }: { children: ReactNode }) {
   };
 
   const clearCompany = async () => {
-
     await mutate(null, false);
-
   };
-
-
-
 
   const contextValue: CompanyContextType = {
     company: data || null,

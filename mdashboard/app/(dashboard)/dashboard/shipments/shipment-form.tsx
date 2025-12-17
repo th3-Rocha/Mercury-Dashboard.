@@ -58,19 +58,23 @@ export function ShipmentForm({ initialData, onSubmit, onCancel, isSubmitting }: 
         e.preventDefault();
 
         if (initialData) {
-            // Update mode - only include fields that have valid values
+            // Update mode - include all editable fields
             const updateData: UpdateShipmentData = {
+                startAddress,
+                startLat: Number(startLat),
+                startLng: Number(startLng),
+                deliveryAddress,
+                deliveryLat: Number(deliveryLat),
+                deliveryLng: Number(deliveryLng),
+                cargoType,
+                weight: Number(weight),
+                estimatedProfit: Number(estimatedProfit),
+                startDate,
                 status: String(status).trim(),
+                employeeId: selectedEmployee?.id || "",
+                truckId: selectedTruck?.id || "",
+                recipientId: selectedRecipient?.id || "",
             };
-
-
-            // Only include estimatedProfit if weight was changed
-            if (estimatedProfit && estimatedProfit.trim() !== "") {
-                const profit = Number(estimatedProfit);
-                if (!isNaN(profit)) {
-                    updateData.estimatedProfit = profit;
-                }
-            }
 
             onSubmit(updateData);
         } else {
@@ -246,11 +250,11 @@ export function ShipmentForm({ initialData, onSubmit, onCancel, isSubmitting }: 
                             className="w-full flex items-center justify-between rounded-md border border-zinc-700 bg-zinc-900 px-3 py-2 text-sm text-zinc-100 shadow-sm hover:bg-zinc-800"
                         >
                             {selectedEmployee ? (
-                                <span>{selectedEmployee.name} — CPF: {selectedEmployee.cpf}</span>
+                                <span className="truncate mr-2">{selectedEmployee.name} — CPF: {selectedEmployee.cpf}</span>
                             ) : (
                                 <span className="text-zinc-400">Select employee</span>
                             )}
-                            <ChevronDown className="ml-2 h-4 w-4 text-zinc-400" />
+                            <ChevronDown className="ml-2 h-4 w-4 text-zinc-400 flex-shrink-0" />
                         </button>
                     </PopoverTrigger>
                     <PopoverContent className="w-80 max-h-60 overflow-y-auto p-1 bg-zinc-900 border-zinc-700">
@@ -268,8 +272,8 @@ export function ShipmentForm({ initialData, onSubmit, onCancel, isSubmitting }: 
                                     selectedEmployee?.id === emp.id && "bg-zinc-800"
                                 )}
                             >
-                                <span>{emp.name} — CPF: {emp.cpf}</span>
-                                {selectedEmployee?.id === emp.id && <Check className="h-4 w-4 text-green-400" />}
+                                <span className="truncate mr-2">{emp.name} — CPF: {emp.cpf}</span>
+                                {selectedEmployee?.id === emp.id && <Check className="h-4 w-4 text-green-400 flex-shrink-0" />}
                             </button>
                         ))}
                     </PopoverContent>
@@ -286,11 +290,11 @@ export function ShipmentForm({ initialData, onSubmit, onCancel, isSubmitting }: 
                             className="w-full flex items-center justify-between rounded-md border border-zinc-700 bg-zinc-900 px-3 py-2 text-sm text-zinc-100 shadow-sm hover:bg-zinc-800"
                         >
                             {selectedTruck ? (
-                                <span>{selectedTruck.licensePlate} — {selectedTruck.maxPayload} kg</span>
+                                <span className="truncate mr-2">{selectedTruck.licensePlate} — {selectedTruck.maxPayload} kg</span>
                             ) : (
                                 <span className="text-zinc-400">Select truck</span>
                             )}
-                            <ChevronDown className="ml-2 h-4 w-4 text-zinc-400" />
+                            <ChevronDown className="ml-2 h-4 w-4 text-zinc-400 flex-shrink-0" />
                         </button>
                     </PopoverTrigger>
                     <PopoverContent className="w-80 max-h-60 overflow-y-auto p-1 bg-zinc-900 border-zinc-700">
@@ -308,8 +312,8 @@ export function ShipmentForm({ initialData, onSubmit, onCancel, isSubmitting }: 
                                     selectedTruck?.id === truck.id && "bg-zinc-800"
                                 )}
                             >
-                                <span>{truck.licensePlate} — {truck.maxPayload} kg</span>
-                                {selectedTruck?.id === truck.id && <Check className="h-4 w-4 text-green-400" />}
+                                <span className="truncate mr-2">{truck.licensePlate} — {truck.maxPayload} kg</span>
+                                {selectedTruck?.id === truck.id && <Check className="h-4 w-4 text-green-400 flex-shrink-0" />}
                             </button>
                         ))}
                     </PopoverContent>
@@ -326,11 +330,11 @@ export function ShipmentForm({ initialData, onSubmit, onCancel, isSubmitting }: 
                             className="w-full flex items-center justify-between rounded-md border border-zinc-700 bg-zinc-900 px-3 py-2 text-sm text-zinc-100 shadow-sm hover:bg-zinc-800"
                         >
                             {selectedRecipient ? (
-                                <span>{selectedRecipient.name} — {selectedRecipient.email}</span>
+                                <span className="truncate mr-2">{selectedRecipient.name} — {selectedRecipient.email}</span>
                             ) : (
                                 <span className="text-zinc-400">Select recipient</span>
                             )}
-                            <ChevronDown className="ml-2 h-4 w-4 text-zinc-400" />
+                            <ChevronDown className="ml-2 h-4 w-4 text-zinc-400 flex-shrink-0" />
                         </button>
                     </PopoverTrigger>
                     <PopoverContent className="w-80 max-h-60 overflow-y-auto p-1 bg-zinc-900 border-zinc-700">
@@ -348,8 +352,8 @@ export function ShipmentForm({ initialData, onSubmit, onCancel, isSubmitting }: 
                                     selectedRecipient?.id === rec.id && "bg-zinc-800"
                                 )}
                             >
-                                <span>{rec.name} — {rec.email}</span>
-                                {selectedRecipient?.id === rec.id && <Check className="h-4 w-4 text-green-400" />}
+                                <span className="truncate mr-2">{rec.name} — {rec.email}</span>
+                                {selectedRecipient?.id === rec.id && <Check className="h-4 w-4 text-green-400 flex-shrink-0" />}
                             </button>
                         ))}
                     </PopoverContent>

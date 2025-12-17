@@ -291,6 +291,30 @@ export const updateShipment = async (id: string, data: UpdateShipmentData) => {
   if (data.status !== undefined) {
     sanitizedData.status = String(data.status);
   }
+  if (data.startAddress !== undefined) {
+    sanitizedData.startAddress = data.startAddress;
+  }
+  if (data.startLat !== undefined && !isNaN(data.startLat)) {
+    sanitizedData.startLat = Number(data.startLat);
+  }
+  if (data.startLng !== undefined && !isNaN(data.startLng)) {
+    sanitizedData.startLng = Number(data.startLng);
+  }
+  if (data.deliveryAddress !== undefined) {
+    sanitizedData.deliveryAddress = data.deliveryAddress;
+  }
+  if (data.deliveryLat !== undefined && !isNaN(data.deliveryLat)) {
+    sanitizedData.deliveryLat = Number(data.deliveryLat);
+  }
+  if (data.deliveryLng !== undefined && !isNaN(data.deliveryLng)) {
+    sanitizedData.deliveryLng = Number(data.deliveryLng);
+  }
+  if (data.cargoType !== undefined) {
+    sanitizedData.cargoType = data.cargoType;
+  }
+  if (data.weight !== undefined && !isNaN(data.weight)) {
+    sanitizedData.weight = Number(data.weight);
+  }
   if (data.currentLat !== undefined && !isNaN(data.currentLat)) {
     sanitizedData.currentLat = Number(data.currentLat);
   }
@@ -303,8 +327,20 @@ export const updateShipment = async (id: string, data: UpdateShipmentData) => {
   if (data.estimatedProfit !== undefined && !isNaN(data.estimatedProfit)) {
     sanitizedData.estimatedProfit = Number(data.estimatedProfit);
   }
+  if (data.startDate !== undefined) {
+    sanitizedData.startDate = data.startDate;
+  }
   if (data.endDate !== undefined) {
     sanitizedData.endDate = data.endDate;
+  }
+  if (data.employeeId !== undefined) {
+    sanitizedData.employeeId = data.employeeId;
+  }
+  if (data.truckId !== undefined) {
+    sanitizedData.truckId = data.truckId;
+  }
+  if (data.recipientId !== undefined) {
+    sanitizedData.recipientId = data.recipientId;
   }
 
   return putData<UpdateShipmentData, Shipment>(`/shipments/${id}`, sanitizedData);

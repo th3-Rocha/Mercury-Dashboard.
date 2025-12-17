@@ -26,11 +26,11 @@ export function TruckCard({
                     <div className="bg-blue-600/20 p-2 sm:p-3 rounded-lg">
                         <TruckIcon className="w-5 h-5 sm:w-6 sm:h-6 text-blue-400" />
                     </div>
-                    <div>
-                        <h3 className="text-white font-semibold text-base sm:text-lg">
+                    <div className="min-w-0 flex-1">
+                        <h3 className="text-white font-semibold text-base sm:text-lg break-words overflow-hidden">
                             {truck.licensePlate}
                         </h3>
-                        <p className="text-zinc-400 text-xs sm:text-sm">
+                        <p className="text-zinc-400 text-xs sm:text-sm truncate">
                             ID: {truck.id.slice(0, 8)}...
                         </p>
                     </div>

@@ -11,6 +11,7 @@ import { validateToken } from "@/lib/api";
 import { AuthContextType, User } from "@/lib/types";
 import Cookies from "js-cookie";
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
+import { jwtDecode } from "jwt-decode";
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);

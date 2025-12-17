@@ -24,11 +24,11 @@ export function EmployeeCard({
                     <div className="bg-green-600/20 p-2 sm:p-3 rounded-lg">
                         <IdCardLanyard className="w-5 h-5 sm:w-6 sm:h-6 text-green-400" />
                     </div>
-                    <div>
-                        <h3 className="text-white font-semibold text-base sm:text-lg">
+                    <div className="min-w-0 flex-1">
+                        <h3 className="text-white font-semibold text-base sm:text-lg break-words overflow-hidden">
                             {employee.name}
                         </h3>
-                        <p className="text-zinc-400 text-xs sm:text-sm">
+                        <p className="text-zinc-400 text-xs sm:text-sm truncate">
                             ID: {employee.id.slice(0, 8)}...
                         </p>
                     </div>
@@ -39,7 +39,7 @@ export function EmployeeCard({
             <div className="space-y-3 mb-4">
                 <div className="flex justify-between items-center py-2 border-b border-zinc-800">
                     <span className="text-zinc-400 text-sm">CNH</span>
-                    <span className="text-white font-medium">{employee.cnh}</span>
+                    <span className="text-white font-medium truncate max-w-[60%] ml-2">{employee.cnh}</span>
                 </div>
                 <div className="flex justify-between items-center py-2 border-b border-zinc-800">
                     <span className="text-zinc-400 text-sm">CNH Expiration</span>
@@ -49,7 +49,7 @@ export function EmployeeCard({
                 </div>
                 <div className="flex justify-between items-center py-2 border-b border-zinc-800">
                     <span className="text-zinc-400 text-sm">CPF</span>
-                    <span className="text-white font-medium text-sm">{employee.cpf}</span>
+                    <span className="text-white font-medium text-sm truncate max-w-[60%] ml-2">{employee.cpf}</span>
                 </div>
                 <div className="flex justify-between items-center py-2">
                     <span className="text-zinc-400 text-sm">Salary</span>

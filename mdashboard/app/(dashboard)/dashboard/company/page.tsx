@@ -36,15 +36,15 @@ export default function Company() {
           <dl className="grid grid-cols-2 gap-4 text-sm">
             <div>
               <dt className="text-zinc-400">Trade Name</dt>
-              <dd className="text-white font-medium">{company.tradeName}</dd>
+              <dd className="text-white font-medium break-words">{company.tradeName}</dd>
             </div>
             <div>
               <dt className="text-zinc-400">Legal Name</dt>
-              <dd className="text-white font-medium">{company.legalName}</dd>
+              <dd className="text-white font-medium break-words">{company.legalName}</dd>
             </div>
             <div>
               <dt className="text-zinc-400">Tax ID</dt>
-              <dd className="text-white font-medium">{company.taxId}</dd>
+              <dd className="text-white font-medium break-words">{company.taxId}</dd>
             </div>
             <div>
               <dt className="text-zinc-400">Balance</dt>
@@ -52,15 +52,15 @@ export default function Company() {
             </div>
             <div>
               <dt className="text-zinc-400">Support Email</dt>
-              <dd className="text-white font-medium">{company.supportEmail}</dd>
+              <dd className="text-white font-medium break-words">{company.supportEmail}</dd>
             </div>
             <div>
               <dt className="text-zinc-400">Main Phone</dt>
-              <dd className="text-white font-medium">{company.mainPhone}</dd>
+              <dd className="text-white font-medium break-words">{company.mainPhone}</dd>
             </div>
             <div>
               <dt className="text-zinc-400">Plan</dt>
-              <dd className="text-white font-medium">{company.subscriptionPlan}</dd>
+              <dd className="text-white font-medium break-words">{company.subscriptionPlan}</dd>
             </div>
           </dl>
         </div>

@@ -295,11 +295,23 @@ export interface CreateShipmentData {
 
 export interface UpdateShipmentData {
   status?: string;
+  startLat?: number;
+  startLng?: number;
+  startAddress?: string;
+  deliveryLat?: number;
+  deliveryLng?: number;
+  deliveryAddress?: string;
+  cargoType?: CargoType;
+  weight?: number;
   currentLat?: number;
   currentLng?: number;
   gasSpent?: number;
   estimatedProfit?: number;
+  startDate?: string;
   endDate?: string;
+  employeeId?: string;
+  truckId?: string;
+  recipientId?: string;
 }
 
 export interface CreateShipmentEventData {
